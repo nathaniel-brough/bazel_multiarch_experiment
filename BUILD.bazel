@@ -1,0 +1,19 @@
+load(":embedded_defs.bzl",  "embedded_cc_binary")
+cc_library(
+    name = "lib",
+    srcs = ["lib.cc"],
+    hdrs = ["lib.h"],
+)
+
+cc_binary(
+    name = "main",
+    srcs = ["main.cc"],
+    deps = [":lib"],
+)
+
+embedded_cc_binary(
+    name = "main_multiarch",
+    build_for = "@bazel_embedded//platforms:cortex_m0",
+    srcs = ["main.cc"],
+    deps = [":lib"],
+)
